@@ -22,7 +22,6 @@ class KnightPathFinder
     end
 
     def initialize(start_pos)
-        # debugger
         @root_node = PolyTreeNode.new(start_pos)
         @visited_positions = [@root_node.value]
         build_move_tree
@@ -33,10 +32,10 @@ class KnightPathFinder
 
         while(!queue.empty?)
             curr_node = queue.shift
-            new_positions = new_move_positions(curr_node.value)
-            curr_node.children.concat(new_positions)
-            queue.concat(new_positions)
-            visited_positions.concat(new_positions.map(&:value))
+            new_children = new_move_positions(curr_node.value)
+            new_children.each {|child| curr_node.add_child(child)}
+            queue.concat(new_children)
+            visited_positions.concat(new_children.map(&:value))
         end
     end
 
@@ -44,11 +43,19 @@ class KnightPathFinder
         KnightPathFinder.valid_moves(pos).select{|node| !visited_positions.include?(node.value)}  
     end
 
+    def find_path(end_pos)  
+        end_node = root_node.bfs(end_pos)
+        trace_path_back(end_node)
+    end
+
+    def trace_path_back(node)
+        return [node.value] if node.parent.nil?
+        trace_path_back(node.parent) + [node.value]
+    end
+
     attr_reader :visited_positions, :root_node
 end
 
-# kpf = KnightPathFinder.new([0, 0])
-# kpf.root_node.children.each do |child_node|
-#     p child_node.children.map(&:value)
-#     puts "-------------"
-# end
+kpf = KnightPathFinder.new([0, 0])
+p kpf.find_path([7, 6]) # => [[0, 0], [1, 2], [2, 4], [3, 6], [5, 5], [7, 6]]
+p kpf.find_path([6, 2]) # => [[0, 0], [1, 2], [2, 0], [4, 1], [6, 2]]
