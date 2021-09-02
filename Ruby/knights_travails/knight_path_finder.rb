@@ -17,8 +17,7 @@ class KnightPathFinder
     end
 
     def self.valid_pos?(pos)
-        x, y = pos 
-        x >= 0 && x < 8 && y >= 0 && y < 8
+        pos.all?(&:between(0, 7))
     end
 
     def initialize(start_pos)
