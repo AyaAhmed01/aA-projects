@@ -16,6 +16,10 @@ class Piece
         false  
     end
 
+    def to_s 
+        @symbol.to_s
+    end
+
     def valid_moves
         moves.reject{|pos| move_into_check?(pos)}
     end

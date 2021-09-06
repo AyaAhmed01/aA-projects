@@ -74,6 +74,7 @@ class Board
     end
 
     def check_mate?(color)
+        return false unless in_check?(color)
         player_pieces = pieces(color)
         player_pieces.all?{|piece| piece.valid_moves.empty?}
     end
@@ -118,22 +119,33 @@ class Board
     attr_reader :nullPiece
 end
 
-# b = Board.new
+# b = Board.new 
 
-# b.move_piece(:white, [1, 6], [2, 6])
-# b.rows.each do |row|
-#     p row.map(&:symbol)
-# end
-# puts 
-# b.move_piece(:white, [0, 5], [2, 7])
-# b.rows.each do |row|
-#     p row.map(&:symbol)
-# end
-# puts 
-# b.move_piece(:white, [2, 7], [6, 3])
-# b.rows.each do |row|
-#     p row.map(&:symbol)
-# end
+# b.move_piece(:white, [1, 4], [3, 4])
 
-# puts 
+# b.rows.each do |row|
+#     p row.map(&:symbol)
+# end
+# puts
+
+# b.move_piece(:black, [6, 5], [5, 5])
+
+# b.rows.each do |row|
+#     p row.map(&:symbol)
+# end
+# puts
+# b.move_piece(:black, [6 , 6], [4, 6])
+
+# b.rows.each do |row|
+#     p row.map(&:symbol)
+# end
+# puts
+# b.move_piece(:white, [0, 3], [4, 7])
+
+# b.rows.each do |row|
+#     p row.map(&:symbol)
+# end
+# puts
+
 # p b.check_mate?(:black)
+
