@@ -1,0 +1,55 @@
+# !/usr/bin/env ruby
+class CLI
+    def initialize
+        @shortened_url, @user = nil, nil  
+    end
+
+    def prompt_email
+        puts "Input your email: "
+        gets.chomp
+    end
+
+    def prompt_option
+        print("What do you want to do?\n
+            0. Create shortened URL\n
+            1. Visit shortened URL\n")
+        gets.chomp.to_i
+    end
+
+    def create_shortened_url
+        puts "Type in your long url:"
+        long_url = gets.chomp
+        @shortened_url = ShortenedUrl.new_url(@user, long_url)
+    end
+
+    def show_shortended_url
+        print ("Short URL is: \n #{@shortened_url.short_url}\n")
+    end
+
+    def prompt_shortened_url
+        puts "Type in the shortened URL:"
+        @shortened_url = ShortenedUrl.find_by(short_url: gets.chomp)
+    end
+
+    def launch_url
+        longUrl = @shortened_url.long_url
+        Launchy.open(longUrl)
+        Visit.record_visit!(@user, longUrl)
+    end
+
+    def run
+        user_email = prompt_email
+        @user = User.find_by(email: user_email)
+        option = prompt_option
+        if option == 0
+            create_shortened_url 
+            show_shortended_url
+        else
+            prompt_shortened_url
+            launch_url
+        end
+        puts "Goodbye!"
+    end
+end
+
+CLI.new.run 
