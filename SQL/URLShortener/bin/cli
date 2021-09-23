@@ -9,6 +9,12 @@ class CLI
         gets.chomp
     end
 
+    def login_user!
+        user_email = prompt_email
+        @user = User.find_by(email: user_email)
+        raise 'That user doesn\'t exist' if @user.nil?
+    end
+
     def prompt_option
         print("What do you want to do?\n
             0. Create shortened URL\n
@@ -19,7 +25,7 @@ class CLI
     def create_shortened_url
         puts "Type in your long url:"
         long_url = gets.chomp
-        @shortened_url = ShortenedUrl.new_url(@user, long_url)
+        @shortened_url = ShortenedUrl.create_for_user_and_long_url!(@user, long_url)
     end
 
     def show_shortended_url
@@ -29,6 +35,7 @@ class CLI
     def prompt_shortened_url
         puts "Type in the shortened URL:"
         @shortened_url = ShortenedUrl.find_by(short_url: gets.chomp)
+        raise 'no such url found!' if @shortened_url.nil?
     end
 
     def launch_url
@@ -38,8 +45,7 @@ class CLI
     end
 
     def run
-        user_email = prompt_email
-        @user = User.find_by(email: user_email)
+        login_user!
         option = prompt_option
         if option == 0
             create_shortened_url 
