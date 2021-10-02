@@ -12,21 +12,27 @@ class UsersController < ApplicationController
         if user.save
             render json: user
         else
-            render json: user.errors.full_messages
+            render json: user.errors.full_messages, status: :unprocessable_entity
         end
     end
 
     def update
         user = User.find(params[:id])
-        user.update(user_params)
-        render json: user
+        if user.update(user_params)
+            render json: user
+        else
+            render json: user.errors.full_messages, status: :unprocessable_entity
+        end
     end
 
     def destroy
+        user = User.find(params[:id])
+        user.destroy
+        render json: user 
     end
 
     private
     def user_params
-        params[:user].permit(:name, :email)
+        params.require(:user).permit(:username)
     end
 end

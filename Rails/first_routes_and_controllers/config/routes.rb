@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # The eight routes could be made by next line
-  resources :users
+  # The total eight routes:
   # get 'users/:id', to: 'users#show', as: 'user' 
   # get 'users', to: 'users#index', as: 'users' 
   # post 'users', to: 'users#create' 
@@ -9,4 +8,8 @@ Rails.application.routes.draw do
   # delete 'users/:id', to: 'users#destroy'
   # get 'users/new', to: 'users#new', as: 'new_user'
   # get 'users/:id/edit', to: 'users#edit', as: 'edit_user' 
+
+  resources :users, only: [:index, :show, :create, :update, :destroy]
+  resources :artworks, only: [:index, :show, :create, :update, :destroy]
+
 end
