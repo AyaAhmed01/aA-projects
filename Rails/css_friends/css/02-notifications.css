@@ -1,0 +1,48 @@
+/* PHASE 2: Notifications */
+.badge {
+    display: inline;
+    font-size: 15px;
+    border-radius: 50%;
+    background-color: black;
+    padding: 2px 7px;
+}
+
+li:hover .badge {
+    background-color: red;
+}
+
+.header {
+  position: relative;     /* all header elements (including notifications) are on top of any element*/
+  z-index: 1;
+}
+
+.header-list > li {     
+    position: relative;   /*notification button relative to make new coordinate system to notification children*/
+}
+
+.header-notifications {
+  display: none;
+  position: absolute;
+  left: -1px;                     /*left -1 relative to parnet li (notification li)*/
+  font-size: 14px;
+  white-space: nowrap;             /*each notification takes exactly one line*/
+  background: #fff;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 5px;   /*make the corner of the list rounded not sharp*/
+  border-bottom-right-radius: 5px; 
+  overflow: hidden; 
+}
+
+li:hover .header-notifications {
+    display: block;
+}
+
+.header-notifications > li {
+  border-top: 1px solid #ccc;
+}
+
+.header-notifications > li:hover {
+    background: #eee;
+}
