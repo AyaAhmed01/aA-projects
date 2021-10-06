@@ -16,3 +16,22 @@
         <td><%=@cat.description%></td>
     </tr>
 </table>
+<br><br>
+
+<% unless @requests.empty? %>
+    <h2>Rental requests <h2>
+    <table>
+        <tr>
+            <th>Start date</th>
+            <th>End date</th>
+        </tr>
+        <% @requests.each do |request|%>
+            <tr>
+                <td><%=request.start_date%></td>
+                <td><%=request.end_date%></td>
+            </tr>
+        <%end%>
+    </table>
+    <br><br>
+<%end%>
+<a href="<%=cats_url%>">All cats</a>
