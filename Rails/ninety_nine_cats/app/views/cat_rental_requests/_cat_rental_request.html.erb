@@ -1,0 +1,23 @@
+<tr>
+    <td><%=cat_rental_request.start_date%></td>
+    <td><%=cat_rental_request.end_date%></td>
+    <%if cat_rental_request.pending?%>
+        <td>
+            <form action="<%=approve_cat_rental_request_url(cat_rental_request)%>" method="POST">
+                <input type="hidden" name="_method" value="PATCH">
+                <input type="submit" value="Approve">
+            </form>
+        </td>  
+
+        <td>
+            <form action="<%=deny_cat_rental_request_url(cat_rental_request)%>" method="POST">
+                <input type="hidden" name="_method" value="PATCH">
+                <input type="submit" value="Deny">
+            </form>
+        </td>
+    <%else%>   
+        <td>
+            <%=cat_rental_request.status%>
+        </td> 
+    <%end%>
+</tr>

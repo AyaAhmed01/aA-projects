@@ -2,20 +2,19 @@
 
 <table> 
     <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Color</th>
-        <th>Sex</th>
-        <th>Description</th>
+        <th>Attribute</th>
+        <th>Value</th>
     </tr>
-    <tr>
-        <td><%=@cat.name%></td>
-        <td><%=@cat.age%></td>
-        <td><%=@cat.color%></td>
-        <td><%=@cat.sex%></td>
-        <td><%=@cat.description%></td>
-    </tr>
+    <% %i(birth_date age sex color description).each do |attr_name| %>
+        <tr>
+            <td><%=attr_name%></td>
+            <td><%= @cat.send(attr_name) %></td>
+        </tr>
+    <%end%>
 </table>
+<br><br>
+
+<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
 <br><br>
 
 <% unless @requests.empty? %>
@@ -24,13 +23,9 @@
         <tr>
             <th>Start date</th>
             <th>End date</th>
+            <th>Status</th>
         </tr>
-        <% @requests.each do |request|%>
-            <tr>
-                <td><%=request.start_date%></td>
-                <td><%=request.end_date%></td>
-            </tr>
-        <%end%>
+        <%= render @requests%>   
     </table>
     <br><br>
 <%end%>

@@ -8,7 +8,31 @@ class CatRentalRequest < ApplicationRecord
     def denied?
         self.status == 'DENIED'
     end
-    
+
+    def pending?
+        self.status == 'PENDING'
+    end
+
+    def overlapping_pending_requests 
+        overlapping_requests.where(status: 'PENDING')
+    end
+
+    def approve!
+        raise "not pending" unless status == 'PENDING'
+        ActiveRecord::Base.transaction do 
+            self.status = 'APPROVED'      # Writing "status = 'APPROVED'" does not work: https://stackoverflow.com/questions/22032801/whats-the-difference-between-using-self-attribute-and-attribute-in-a-model
+            self.save! 
+            overlapping_pending_requests.each do |req| 
+                req.deny!
+            end
+        end
+    end
+
+    def deny!
+        self.status = 'DENIED'
+        self.save!
+    end
+
     private
     # We want:
     # 1. A different request
