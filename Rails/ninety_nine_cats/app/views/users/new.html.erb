@@ -1,0 +1,16 @@
+<div>
+    <h1>New User</h1>
+    <ul>
+        <%flash.now[:errors].try(:each) do |msg|%>
+            <li><%=msg%></li>
+        <%end%>
+    </ul>
+    <form action="<%=users_url%>" method="POST">
+        <label for="username">User name</label>
+        <input type="text" name="user[user_name]" id="username"><br><br>
+        <label for="password">Password</label>
+        <input type="text" name="user[password]" id="password"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+# refactor users_new and session_new to render from same form

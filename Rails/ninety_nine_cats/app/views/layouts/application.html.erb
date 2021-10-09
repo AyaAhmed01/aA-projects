@@ -11,6 +11,26 @@
   </head>
 
   <body>
+    <nav class="header-nav"> 
+      <h1> <a href="<%= cats_url %>"> 99Cats </a> </h1>
+      <div>
+        <% if current_user.nil? %>
+          <a href= "<%=new_session_url%>">Sign in</a>
+          <a href= "<%=new_user_url%>">Sign up</a>
+
+        <%else%>
+          <%= curren_user.user_name %>
+          <form action="<%= session_url %>" method= "GET">
+            <input type="hidden" name = "_method" value = "DELETE">
+            <input type="hidden" name = "authenticity_token" value = "form_authenticity_token">
+            <input type="submit" value="Log out">
+          </form>
+        <%end%>
+      </div>  
+    </nav>
+
+    <main>
     <%= yield %>
+    </main>
   </body>
 </html>
