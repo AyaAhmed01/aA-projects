@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
     # To use them in views, make them helper_methods.
     helper_method :current_user
 
+    private
     def current_user
         return nil if session[:session_token].nil?
         @current_user ||= User.find_by(session_token: session[:session_token])
@@ -20,8 +21,12 @@ class ApplicationController < ActionController::Base
         session[:session_token] = nil 
     end
 
-    def not_already_signed_in
-        redirect_to cats_url if current_user && current_user.session_token == session[:session_token]
+    def require_no_user!
+        redirect_to cats_url if current_user 
+    end
+
+    def require_user!
+        redirect_to new_session_url if current_user.nil?
     end
 end
 

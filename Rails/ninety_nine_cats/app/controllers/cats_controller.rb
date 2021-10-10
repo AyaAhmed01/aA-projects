@@ -1,4 +1,9 @@
-class CatsController < ApplicationController 
+class CatsController < ApplicationController
+    # redirection inside a before_action cancels further processing of the request
+    # if the user is logged in, trying edit/update will get only his OWN cats. So since I validate that
+    # ONLY logged in users can edit/update, no need to make ownership validation. We make logging in validation
+    # against a malicious user that could make a PUT request directly to /cats/123 using Postman or a similar
+    before_action :require_user!, only: %i(edit update new create)  
     def index 
         @cats = Cat.all
         render :index 
@@ -16,7 +21,10 @@ class CatsController < ApplicationController
     end
 
     def create 
-        @cat = Cat.new(cat_params)
+        # @cat = Cat.new(cat_params)
+        # @cat.owner = current_user
+        # same:
+        @cat = current_user.cats.new(cat_params)
         if @cat.save
             redirect_to cat_url(@cat)
         else
@@ -24,14 +32,16 @@ class CatsController < ApplicationController
             render :new 
         end
     end
-
+    
     def edit 
-        @cat = Cat.find(params[:id])
+        user_cats = current_user.cats 
+        @cat = user_cats.find(params[:id])
         render :edit 
     end
 
     def update 
-        @cat = Cat.find(params[:id])
+        user_cats = current_user.cats 
+        @cat = user_cats.find(params[:id])
         if @cat.update(cat_params)
             redirect_to cat_url(@cat)
         else

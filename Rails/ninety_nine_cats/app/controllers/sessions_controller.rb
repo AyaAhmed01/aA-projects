@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController 
-    before_action :not_already_signed_in, only: :create  
+    before_action :require_no_user!, except: :destroy
 
     def new
         render :new  
@@ -12,8 +12,7 @@ class SessionsController < ApplicationController
             login_user!(@user) 
             redirect_to cats_url
         else
-            flash.now[:errors] ||= []
-            flash.now[:errors] << "Incorrect user name or password"
+            flash.now[:errors] = ["Incorrect username and/or password"]
             render :new 
         end
     end

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController 
-    before_action :not_already_signed_in, only: :create  
+    before_action :require_no_user!  
     def new 
         @user = User.new 
     end

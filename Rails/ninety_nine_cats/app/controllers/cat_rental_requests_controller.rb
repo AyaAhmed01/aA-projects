@@ -1,4 +1,7 @@
 class CatRentalRequestsController < ApplicationController
+    before_action :require_user!, only: %i(approve deny)
+    before_action :require_cat_ownership!, only: %i(approve deny)
+
     def new 
         @cats = Cat.all 
         render :new 
@@ -6,6 +9,7 @@ class CatRentalRequestsController < ApplicationController
 
     def create
         @rental_request = CatRentalRequest.new(request_params)
+        @rental_request.requester = current_user    
         if @rental_request.save
             redirect_to cat_url(@rental_request.cat)
         else
@@ -28,7 +32,17 @@ class CatRentalRequestsController < ApplicationController
     private 
 
     def current_cat_rental_request
-        @rental_request = CatRentalRequest.find(params[:id])
+        @rental_request ||= CatRentalRequest.includes(:cat).find(params[:id]) # use includes to solve N+1 problem
+    end
+
+    def current_cat
+        current_cat_rental_request.cat   # won't fire another DB query 
+    end
+
+    def require_cat_ownership!
+        unless current_user.owns_cat?(curren_cat)
+            redirect_to cat_url(current_cat)
+        end
     end
 
     def request_params

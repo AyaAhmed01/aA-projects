@@ -4,7 +4,10 @@ class CatRentalRequest < ApplicationRecord
     validate :does_not_overlap_approved_request
 
     belongs_to :cat
-
+    belongs_to :requester, 
+        foreign_key: :requester_id,
+        class_name: 'User'
+        
     def denied?
         self.status == 'DENIED'
     end

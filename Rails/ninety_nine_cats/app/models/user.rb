@@ -6,6 +6,11 @@ class User < ApplicationRecord
     validates :password, length: {minimum: 6, allow_nil: true}
     after_initialize :ensure_session_token
 
+    has_many :cats 
+    has_many :requests,
+        foreign_key: :requester_id,
+        class_name: 'CatRentalRequest'
+
     def self.generate_session_token
         SecureRandom.urlsafe_base64(16)
     end
@@ -14,6 +19,10 @@ class User < ApplicationRecord
         user = User.find_by(user_name: user_name)
         return user if user && user.is_password?(password)
         nil 
+    end
+
+    def owns_cat?(cat)
+        cat.user_id == self.id 
     end
 
     def reset_session_token!

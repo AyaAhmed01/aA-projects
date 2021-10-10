@@ -13,14 +13,16 @@
     <%end%>
 </table>
 <br><br>
-
-<a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
-<br><br>
+<% if current_user.try(:owns_cat?(@cat)) %>
+    <a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
+    <br><br>
+<%end%>
 
 <% unless @requests.empty? %>
     <h2>Rental requests <h2>
     <table>
         <tr>
+            <th>Requester</th>
             <th>Start date</th>
             <th>End date</th>
             <th>Status</th>
