@@ -40,7 +40,7 @@ class CatRentalRequestsController < ApplicationController
     end
 
     def require_cat_ownership!
-        unless current_user.owns_cat?(curren_cat)
+        unless current_user.owns_cat?(current_cat)
             redirect_to cat_url(current_cat)
         end
     end

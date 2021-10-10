@@ -1,0 +1,7 @@
+<%unless flash[:errors].nil?%>
+    <ul>
+        <%flash[:errors].try(:each) do |msg|%>
+            <li><%=msg%></li>
+        <%end%>
+    </ul>
+<%end%>

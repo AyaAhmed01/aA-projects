@@ -2,7 +2,7 @@
     <td><%=cat_rental_request.requester.user_name%></td>
     <td><%=cat_rental_request.start_date%></td>
     <td><%=cat_rental_request.end_date%></td>
-    <%if cat_rental_request.pending? && current_user.owns_cat?(cat_rental_request.cat)%>
+    <%if cat_rental_request.pending? && current_user.try(:owns_cat?, cat_rental_request.cat)%>
         <td>
             <form action="<%=approve_cat_rental_request_url(cat_rental_request)%>" method="POST">
                 <input

@@ -10,8 +10,7 @@ class UsersController < ApplicationController
             login_user!(@user)     # helper method in application_controller
             redirect_to cats_url
         else
-            flash.now[:errors] ||=[]
-            flash.now[:errors] << @user.errors.full_messages
+            flash.now[:errors] = @user.errors.full_messages
             render :new 
         end
     end

@@ -13,7 +13,8 @@
     <%end%>
 </table>
 <br><br>
-<% if current_user.try(:owns_cat?(@cat)) %>
+
+<% if current_user.try(:owns_cat?, @cat) %>
     <a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a>
     <br><br>
 <%end%>

@@ -19,8 +19,8 @@
           <a href= "<%=new_user_url%>">Sign up</a>
 
         <%else%>
-          <%= curren_user.user_name %>
-          <form action="<%= session_url %>" method= "GET">
+          <%= current_user.user_name %>
+          <form action="<%= session_url %>" method= "POST">  <!-- will NOT work with GET, do not know why -->
             <input type="hidden" name = "_method" value = "DELETE">
             <input type="hidden" name = "authenticity_token" value = "form_authenticity_token">
             <input type="submit" value="Log out">

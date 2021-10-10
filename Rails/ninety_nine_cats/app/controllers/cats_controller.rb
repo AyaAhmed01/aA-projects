@@ -5,6 +5,7 @@ class CatsController < ApplicationController
     # against a malicious user that could make a PUT request directly to /cats/123 using Postman or a similar
     before_action :require_user!, only: %i(edit update new create)  
     def index 
+        # fail
         @cats = Cat.all
         render :index 
     end
