@@ -12,11 +12,11 @@ class Pawn < Piece
 
     private
     def at_start_row?
-        (color == :white && pos[0] == 1)  || (color == :black && pos[0] == 6) 
+        (color == :blue && pos[0] == 1)  || (color == :yellow && pos[0] == 6) 
     end
 
-    def forward_dir  # returns 1 for white, -1 for black
-        return (color == :white ? 1 : -1)
+    def forward_dir  # returns 1 for blue, -1 for yellow
+        return (color == :blue ? 1 : -1)
     end
 
     def forward_steps

@@ -24,12 +24,10 @@ class Display
       def piece_color(i, j)
         if cursor.selected && cursor.cursor_pos == [i, j]
             bg = :light_red 
-        elsif cursor.selected
+        elsif cursor.cursor_pos == [i, j]
             bg = :light_green
-        elsif board[[i, j]].color == :white 
-            bg = :light_blue
-        elsif board[[i, j]].color == :black 
-            bg = :light_yellow
+        elsif board[[i, j]].color == :blue || board[[i, j]].color == :yellow
+            bg = board[[i, j]].color
         else
             bg = :light_white
         end
@@ -42,20 +40,5 @@ class Display
         build_grid.each { |row| puts row.join('') }
       end
 
-      def Test
-        7.times do  
-            render
-            cursor.get_input
-        end
-      end
 end
 
-# Render the square at the @cursor_pos display in a different color. 
-# Test that you can move your cursor around the board by creating and calling a method 
-# that loops through Display#render and Cursor#get_input (much as Player#make_move will
-#  function later!).
-
-# b = Board.new 
-# dis = Display.new(b)
- 
-# dis.Test
