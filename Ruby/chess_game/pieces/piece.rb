@@ -29,7 +29,7 @@ class Piece
     end
 
     private
-    def move_into_check?(end_pos)   # see if after this move MY king will be in check
+    def move_into_check?(end_pos)   # checks if after this move current player's king will be in check
         temp_board = board.dup 
         temp_board.move_piece!(pos, end_pos)
         temp_board.in_check?(color)
