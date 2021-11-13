@@ -41,7 +41,7 @@ class Cursor
   end
 
   def toggle_selected
-    @selected != @selected
+    @selected = !@selected
   end
 
   def get_input
