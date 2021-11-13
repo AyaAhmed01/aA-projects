@@ -1,2 +1,2 @@
 # AppAcademy
-contain my projects in App Academy bootcamp
+My projects in App Academy Open courses 
