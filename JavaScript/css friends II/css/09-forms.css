@@ -1,0 +1,62 @@
+/* PHASE 3: Forms */
+
+.content-group {
+    font-family: sans-serif;
+}
+
+.content-main form {
+    display: flex;
+}
+
+.form-fieldset {
+    border: #ccc solid 1px;
+    padding: 19px;
+    margin: 0 0 20px 20px;
+    border-radius: 5px;
+    background-color: #eee;
+    width: 500px;
+}
+
+.input label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+#post-title, #post-body {
+    display: block;
+    padding: 10px;
+    background-color: white;
+    border: #ccc solid 1px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    width: calc(100% - 22px);
+}
+
+#post-body {
+    height: 120px;
+}
+
+#post-title:focus, #post-body:focus {
+    border-color: #0c0;
+}
+
+.submit input{
+    border: 1px solid #0c0;
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: #0c0;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 3px #070;
+}
+
+.submit strong {
+    font-weight: 700;
+
+}
+.submit strong:hover {
+    cursor: pointer;
+    color: red;
+}
