@@ -1,0 +1,48 @@
+/* PHASE 0: Sidebar */
+
+/* To pull the .profile-picture partly out of its sidebar section, use a negative margin-top.
+This is better than absolute positioning, as it is still in the document flow, and won't 
+leave a gap, but pull everything up with it. */
+
+/*To make sure it is in top of the .content-header section, position it relative. 
+You do not need to give it a z-index. As they're now both relative, order of appearance on the page
+dictates the stacking order. profile picture is declared later*/
+.profile-picture {
+    display: block;
+    margin-top:-50%;
+    position: relative;
+    border: black solid 1px;
+    border-radius: 5px;
+    background: black;
+}
+
+.profile-info h2{
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.profile-info h2, p {
+    margin: 20px 0;
+}
+
+.profile-nav {
+    margin: 20px 0;
+}
+
+.profile-nav li {
+    border-top: #ccc solid 1px;
+    font-weight: 700;
+}
+
+.profile-nav a {
+    display: block;
+    padding: 5px;
+}
+
+.profile-nav ul:last-child {
+    border-bottom: #ccc solid 1px;
+}
+
+.profile-nav a:hover {
+    background-color: #eee;
+}
