@@ -1,0 +1,69 @@
+/* PHASE 5: Icons */
+
+/*
+We wanna get rid of the text in icon, but we do not want to take it out of our HTML, as it conveys meaning.
+So: 1- padding is part of an element and shows the background image. Let's make a padding-top equal to the height,
+       and set the height to 0. This pushes the text outside the box.
+    2- make overflow: hidden to clip the text that's outside the box.
+*/
+
+[class*="icon-"] {
+    background-image: url(".././images/sprite.png");
+    display: inline-block;                  /* This allows us to set a width and height*/
+    background-size: 25px 250px;            /* This is the size that the image is rendered with (should be its original size to prevent shrinking/stretching and corrupt image)*/
+    /* background-repeat: no-repeat; */     /* These are extra*/  
+    vertical-align:text-bottom;
+    overflow: hidden;
+    height: 0;
+    width: 25px;                          /* Width & height are of the element (the block) that image is put inside*/
+    padding-top: 25px; 
+}
+
+[class*="icon-small"]{
+    width: 20px;
+    padding-top: 20px;
+}
+
+/*background-position: https://www.w3schools.com/cssref/tryit.asp?filename=trycss_background-position_pixel
+the position of the top-left corner of the image in the background of element
+x is from left to right,, y from top to down
+*/
+.icon-comment {
+    background-position: 0 0;
+}
+
+.icon-comment:hover {
+    background-position: 0 -25px;
+}
+
+.icon-reblog {
+    background-position: 0 -100px;
+}
+
+.icon-reblog:hover {
+    background-position: 0 -125px;
+}
+
+.icon-favourite {
+    background-position: 0 -50px;
+}
+
+.icon-favourite:hover {
+    background-position: 0 -75px;
+}
+
+.icon-small-friends {
+    background-position: 0 -150px;
+}
+
+.icon-small-about {
+    background-position: 0 -175px;
+}
+
+.icon-small-photos {
+    background-position: 0 -200px;
+}
+
+.icon-small-wall {
+    background-position: 0 -225px;
+}
